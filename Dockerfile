@@ -1,18 +1,14 @@
-# Flower
-#
-# VERSION 0.1
+FROM ubuntu:12.04
 
-FROM ubuntu:trusty
-MAINTAINER Igor Serko <igor.serko@gmail.com>
+RUN apt-get update
+RUN apt-get install -y wget ca-certificates
 
-# update the package repository and install python pip
-RUN apt-get -y update && apt-get -y install python-dev python-pip
+# Install pip
+RUN cd /tmp; wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py;\
+ python get-pip.py; rm get-pip.py;
 
-# installing flower
-RUN pip install flower redis
+# Install pip via package-manager 
+RUN apt-get install -y python-pip
 
-# Make sure we expose port 5555 so that we can connect to it
-EXPOSE 5555
-
-# Running flower
-ENTRYPOINT ["flower", "--port=5555"]
+# add flower
+RUN pip install redis flower
