@@ -12,3 +12,5 @@ RUN apt-get install -y python-pip
 
 # add flower
 RUN pip install redis flower
+
+ENTRYPOINT ["flower", "--port=5555"]
