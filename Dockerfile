@@ -13,4 +13,7 @@ RUN apt-get install -y python-pip
 # add flower
 RUN pip install redis flower
 
+# Installs a patched version of amqp that runs on GKE.
+RUN pip uninstall -y amqp && pip install https://github.com/miracle2k/py-amqp/archive/09de0a6.zip
+
 ENTRYPOINT ["flower", "--port=5555"]
